@@ -2,256 +2,271 @@ Power BI Copilot Best Practice End-to-End Guidance
 
 Table of Content
 
-1. Introduction to Power BI Copilot 1
+[1. Introduction to Power BI Copilot 1](#_Toc208328461)
 
-• What is Power BI Copilot and its Key capabilities?
+•           What is Power BI Copilot and its Key capabilities?
 
-• Licensing
+•           Licensing
 
-• Pre-flight checks before using Copilot
+•           Pre-flight checks before using Copilot
 
-2. Data Preparation for Copilot 2
+[2\. Data Preparation for Copilot 2](#_Toc208328462)
 
-• Importance of clean, well-modeled data
+•           Importance of clean, well-modeled data
 
-• Schema design best practices
+•           Schema design best practices
 
-• Naming conventions for tables and fields
+•           Naming conventions for tables and fields
 
-• Prepare Data for AI
+•           Prepare Data for AI
 
-• Generate Synonyms with Copilot
+•           Generate Synonyms with Copilot
 
-3. Copilot in Data Modeling. 6
+[3. Copilot in Data Modeling. 6](#_Toc208328463)
 
-4. Copilot in Report Building. 6
+[4. Copilot in Report Building. 6](#_Toc208328464)
 
-5. Insight Generation. 7
+[5. Insight Generation. 7](#_Toc208328465)
 
-6. Hands-On Demo. 8
+[6. Hands-On Demo. 8](#_Toc208328466)
 
- 
+&nbsp;
 
-1. Introduction to Power BI Copilot
-What is Power BI Copilot?
+### 1. Introduction to Power BI Copilot
 
-Power BI Copilot is an AI-powered assistant integrated into Microsoft Power BI that leverages generative AI to help users interact with data more naturally and efficiently. It's designed to support both business users and report creators by simplifying data analysis, report generation, and insights discovery.
+**What is Power BI Copilot?**
 
-Key Capabilities
+**Power BI Copilot** is an AI-powered assistant integrated into Microsoft Power BI that leverages generative AI to help users interact with data more naturally and efficiently. It's designed to support both business users and report creators by simplifying data analysis, report generation, and insights discovery.
 
-• Natural Language Interaction
+**Key Capabilities**
 
-• Automated Report Generation - Generate entire report pages or dashboards using natural language prompts.
+•           **Natural Language Interaction**
 
-• DAX Code Assistance - Write, explain, and optimize DAX queries.
+•           **Automated Report Generation -** Generate entire report pages or dashboards using natural language prompts.
 
-• Narrative Visuals - Add AI-generated summaries directly into reports, and explain trends, KPIs, and anomalies in plain language.
+•           **DAX Code Assistance -** Write, explain, and optimize DAX queries.
 
-• Semantic Model Descriptions - Automatically generate descriptions for measures and fields in your data model.
+•           **Narrative Visuals -** Add AI-generated summaries directly into reports, and explain trends, KPIs, and anomalies in plain language.
 
-• Chat-Based Exploration - Use the Copilot pane or standalone experience to explore data conversationally, ask follow-up questions, drill into visuals, or request summaries.
+•           **Semantic Model Descriptions -** Automatically generate descriptions for measures and fields in your data model.
 
-Licensing
+•           **Chat-Based Exploration -** Use the Copilot pane or standalone experience to explore data conversationally, ask follow-up questions, drill into visuals, or request summaries.
+
+**Licensing**
 
 As of April 30, 2025, Microsoft has removed the F64 SKU requirement. Now, all paid Microsoft Fabric SKUs from F2 and above can access Copilot and AI capabilities, including in Power BI
 
-Pre-Flight Checks for Power BI Copilot
+**Pre-Flight Checks for Power BI Copilot**
 
 Environment & Access Configuration
 
-· Copilot must be enabled in your tenant settings via the Microsoft Fabric admin portal - Enable Copilot in Fabric - Microsoft Fabric | Microsoft Learn
+·        Copilot must be enabled in your tenant settings via the Microsoft Fabric admin portal - [Enable Copilot in Fabric - Microsoft Fabric | Microsoft Learn](https://learn.microsoft.com/en-us/fabric/fundamentals/copilot-enable-fabric)
 
-· Ensure your workspace is assigned to a Premium (P1+) or Fabric (F2+) capacity.
+·        Ensure your workspace is assigned to a Premium (P1+) or Fabric (F2+) capacity.
 
-· Trial workspaces or Premium Per User (PPU) workspaces are not supported for Copilot
+·        Trial workspaces or Premium Per User (PPU) workspaces are not supported for Copilot
 
-· You must have admin, member, or contributor access to a workspace to use Copilot features.
+·        You must have admin, member, or contributor access to a workspace to use Copilot features.
 
-2. Data Preparation for Copilot
-Importance of clean, well-modeled data - clean, well-modeled data is crucial for getting the most out of Power BI Copilot, which uses AI to help users explore data, generate DAX formulas, create visuals, and build reports using natural language. Here's why it matters
+### 2\. Data Preparation for Copilot
 
-a. Metadata improves AI understanding - Copilot uses metadata like table/column names and descriptions to understand context. Clear, descriptive names and annotations help Copilot generate more relevant and accurate outputs.
+**Importance of clean, well-modeled data - c**lean, well-modeled data is **crucial** for getting the most out of **Power BI Copilot**, which uses AI to help users explore data, generate DAX formulas, create visuals, and build reports using natural language. Here's why it matters
 
-b. Relationships enable intelligent insights - Defined relationships between tables allow Copilot to:
+a.      Metadata improves AI understanding - Copilot uses metadata like table/column names and descriptions to understand context. Clear, descriptive names and annotations help Copilot generate more relevant and accurate outputs.
 
-• Join data correctly
+b.     **Relationships enable intelligent insights -** Defined relationships between tables allow Copilot to:
 
-• Understand hierarchies and aggregations
+•          Join data correctly
 
-• Avoid ambiguous or incorrect calculations
+•          Understand hierarchies and aggregations
 
-c. Data quality affects trust and usability - Inconsistent, incomplete, or dirty data can lead to misleading insights, incorrect DAX suggestions or poor user experience
+•          Avoid ambiguous or incorrect calculations
 
-Schema design best practices
+c.      Data quality affects trust and usability **-** Inconsistent, incomplete, or dirty data can lead to misleading insights, incorrect DAX suggestions or poor user experience
 
-a. Use a Star Schema - Star schemas are easier for Copilot to interpret and generate correct aggregations and relationships.
+**Schema design best practices**
 
-· Fact tables: Contain measurable, quantitative data (e.g., sales, transactions).
+**a.**      Use a Star Schema **\-** Star schemas are easier for Copilot to interpret and generate correct aggregations and relationships.
 
-· Dimension tables: Contain descriptive attributes (e.g., customer, product, date).
+·        Fact tables: Contain measurable, quantitative data (e.g., sales, transactions).
 
-b. Define Clear Relationships - Copilot relies on relationships to understand how tables connect and to generate accurate joins and calculations
+·        Dimension tables: Contain descriptive attributes (e.g., customer, product, date).
 
-· Use single-directional relationships where possible.
+b.     Define Clear Relationships - Copilot relies on relationships to understand how tables connect and to generate accurate joins and calculations
 
-· Avoid ambiguous or circular relationships.
+·        Use single-directional relationships where possible.
 
-· Ensure primary keys and foreign keys are properly defined.
+·        Avoid ambiguous or circular relationships.
 
-c. Use Meaningful Table and Column Names - Copilot uses these names to interpret user intent and generate natural language responses
+·        Ensure primary keys and foreign keys are properly defined.
 
-· Avoid cryptic or abbreviated names (e.g., tbl_cust → Customers).
+c.      Use Meaningful Table and Column Names - Copilot uses these names to interpret user intent and generate natural language responses
 
-· Use CamelCase or PascalCase for readability.
+·        Avoid cryptic or abbreviated names (e.g., tbl_cust → Customers).
 
-d. Add Descriptions to Tables and Fields - Copilot uses metadata to understand context and improve the quality of its suggestions.
+·        Use CamelCase or PascalCase for readability.
 
-· Use the Model view in Power BI Desktop to add descriptions.
+d.     Add Descriptions to Tables and Fields - Copilot uses metadata to understand context and improve the quality of its suggestions.
 
-· Describe the purpose, units, and any business logic.
+·        Use the Model view in Power BI Desktop to add descriptions.
 
-e. Create and Document Measures - Copilot can reuse and reference these measures when generating new insights
+·        Describe the purpose, units, and any business logic.
 
-· Use explicit measures instead of implicit ones.
+e.      Create and Document Measures - Copilot can reuse and reference these measures when generating new insights
 
-· Name measures clearly (e.g., Total Sales, Average Order Value).
+·        Use explicit measures instead of implicit ones.
 
-· Add descriptions to explain business logic.
+·        Name measures clearly (e.g., Total Sales, Average Order Value).
 
-f. Avoid Overly Complex Models
+·        Add descriptions to explain business logic.
 
-· Limit the number of tables and relationships to what's necessary.
+f.       Avoid Overly Complex Models
 
-· Use composite models or aggregated tables for performance.
+·        Limit the number of tables and relationships to what's necessary.
 
-g. Enable Q&A and Copilot Features - These settings directly impact how well Copilot can interpret natural language queries.
+·        Use composite models or aggregated tables for performance.
 
-· Go to Model > Q&A setup and ensure:
+g.      Enable Q&A and Copilot Features - These settings directly impact how well Copilot can interpret natural language queries.
 
-· Synonyms are added for key terms.
+·        Go to Model > Q&A setup and ensure:
 
-· Unnecessary tables/columns are hidden from Q&A.
+·        Synonyms are added for key terms.
 
-Naming conventions for tables and fields
+·        Unnecessary tables/columns are hidden from Q&A.
+
+**Naming conventions for tables and fields**
 
 When using Power BI Copilot, adopting consistent and human-readable naming conventions is essential for improving the quality of AI-generated insights and ensuring a smooth user experience. Here are the key naming convention guidelines
 
-· Use Human-Readable Names
+·        Use Human-Readable Names
 
-· Avoid abbreviations or cryptic codes (e.g., use Customer Name instead of Cust_Nm).
+·        Avoid abbreviations or cryptic codes (e.g., use Customer Name instead of Cust_Nm).
 
-· Use Pascal Case or Title Case for readability (e.g., SalesAmount, OrderDate).
+·        Use **Pascal Case** or **Title Case** for readability (e.g., SalesAmount, OrderDate).
 
-· Be Descriptive and Specific
+·        Be Descriptive and Specific
 
-· Clearly distinguish similar fields across tables. For example:
+·        Clearly distinguish similar fields across tables. For example:
 
-· Customer Name in the Customer table
+·        Customer Name in the Customer table
 
-· Store Name in the Store table
+·        Store Name in the Store table
 
-· Avoid generic names like Name, Value, or Amount without context.
+·        Avoid generic names like Name, Value, or Amount without context.
 
-· Avoid Duplicates Across Tables - Ensure that field names are unique across the model to prevent confusion for Copilot and users.
+·        Avoid Duplicates Across Tables **-** Ensure that field names are unique across the model to prevent confusion for Copilot and users.
 
-· Add Concise Descriptions - Use the description property in Power BI Desktop to explain the purpose of each table, column, and measure. These descriptions help Copilot generate more accurate and context-aware responses**.**
+·        Add Concise Descriptions **-** Use the description property in Power BI Desktop to explain the purpose of each table, column, and measure. These descriptions help Copilot generate more accurate and context-aware responses**.**
 
-· Consistency Across the Model - Apply the same naming pattern across all tables and fields. For example, if you use TotalSales in one table, avoid using SalesTotal in another.
+·        Consistency Across the Model \- Apply the same naming pattern across all tables and fields. For example, if you use TotalSales in one table, avoid using SalesTotal in another.
 
-Prepare data for AI
+**Prepare data for AI**
 
-The "Prep data for AI" feature in Power BI Desktop/Service is a dedicated toolset designed to help you optimize your semantic model for use with Copilot and other AI-driven experiences. It ensures your data is structured, contextualized, and ready for natural language interactions. This feature introduces three key capabilities,
+The **"Prep data for AI"** feature in **Power BI Desktop**/Service is a dedicated toolset designed to help you optimize your semantic model for use with **Copilot** and other AI-driven experiences. It ensures your data is structured, contextualized, and ready for natural language interactions. This feature introduces three key capabilities,
 
-1. AI Data Schema
+**1. AI Data Schema**
 
-· Let you define a schema specifically for Copilot.
+·        Let you define a schema specifically for Copilot.
 
-· You can highlight the most relevant tables, fields, and relationships.
+·        You can highlight the most relevant tables, fields, and relationships.
 
-· Helps Copilot focus on the right parts of your model and reduces ambiguity.
+·        Helps Copilot focus on the right parts of your model and reduces ambiguity.
 
-2. AI Instructions
+**2. AI Instructions**
 
-· Allows you to add business context and guidance directly to your semantic model.
+·        Allows you to add business context and guidance directly to your semantic model.
 
-· Helps Copilot interpret user questions more accurately by incorporating organizational terminology and analytical priorities.
+·        Helps Copilot interpret user questions more accurately by incorporating organizational terminology and analytical priorities.
 
-3. Verified Answers
+**3. Verified Answers**
 
-· Let you link specific user questions to validated visuals or report elements.
+·        Let you link specific user questions to validated visuals or report elements.
 
-· Ensures Copilot provides grounded, trustworthy responses vetted by report authors
+·        Ensures Copilot provides grounded, trustworthy responses vetted by report authors
 
-More details about the tool and the tutorial of how to use please visit Prepare your data for AI - Power BI | Microsoft Learn
+More details about the tool and the tutorial of how to use please visit [Prepare your data for AI - Power BI | Microsoft Learn](https://learn.microsoft.com/en-us/power-bi/create-reports/copilot-prepare-data-ai)
 
-Generate Synonyms with Copilot
+**Generate Synonyms with Copilot**
 
-Using synonyms in Power BI Copilot offers several important benefits that significantly enhance the user experience and the effectiveness of natural language interactions. You can find the official Microsoft documentation on generating synonyms for Power BI Q&A and Copilot here: Enhance Q&A with Copilot for Power BI - Microsoft Learn
+Using **synonyms in Power BI Copilot** offers several important benefits that significantly enhance the user experience and the effectiveness of natural language interactions. You can find the official Microsoft documentation on generating synonyms for Power BI Q&A and Copilot here:  [Enhance Q&A with Copilot for Power BI - Microsoft Learn](https://learn.microsoft.com/en-us/power-bi/natural-language/q-and-a-copilot-enhancements)
 
-Benefits of Using Synonyms in Power BI Copilot
+**Benefits of Using Synonyms in Power BI Copilot**
 
-· Improved Natural Language Understanding - Users often use different terms than those defined in the data model. Synonyms help Copilot and Q&A interpret user queries more accurately, even if the exact field or table name isn't used, Example: If your model uses Customer ID, but users type "Client Number", synonyms bridge that gap.
+·        **Improved Natural Language Understanding -** Users often use different terms than those defined in the data model. Synonyms help Copilot and Q&A interpret user queries more accurately, even if the exact field or table name isn't used, Example: If your model uses Customer ID, but users type "Client Number", synonyms bridge that gap.
 
-· Enhanced User Experience - Users don't need to memorize technical or internal field names. They can ask questions in their own words, making the experience more intuitive and accessible-especially for non-technical users.
+·        **Enhanced User Experience -** Users don't need to memorize technical or internal field names. They can ask questions in their own words, making the experience more intuitive and accessible-especially for non-technical users.
 
-· Support for Multilingual and Regional Variations - Synonyms can include translations or regional terms (e.g., "Revenue" vs. "Turnover"). This is especially useful in global organizations with diverse user bases.
+·         **Support for Multilingual and Regional Variations -** Synonyms can include translations or regional terms (e.g., "Revenue" vs. "Turnover"). This is especially useful in global organizations with diverse user bases.
 
-· Better Copilot and Q&A Performance - Synonyms increase the likelihood that Copilot will return relevant visuals or insights, reduce the number of failed or misunderstood queries.
+·        **Better Copilot and Q&A Performance -** Synonyms increase the likelihood that Copilot will return relevant visuals or insights, reduce the number of failed or misunderstood queries.
 
-· Alignment with Business Terminology - You can align technical field names with business-friendly terms. This ensures consistency between how data is modeled and how it's discussed across departments**.**
+·        **Alignment with Business Terminology -** You can align technical field names with business-friendly terms. This ensures consistency between how data is modeled and how it's discussed across departments**.**
 
-3. Copilot in Data Modeling
+### 3. Copilot in Data Modeling
+
 Fabric Copilot streamlines and accelerates data modeling in Power BI by leveraging AI to assist with for example
 
-• Create calculated columns and measures
+•           Create calculated columns and measures
 
-• Generate DAX expressions
+•           Generate DAX expressions
 
-• Summarize table relationships
+•           Summarize table relationships
 
 Some Tips for prompt engineering in modeling
 
-Tip	Example prompts
-Be Specific and Contextual - Clearly define the tables, columns, and relationships you're working with	Create a DAX measure to calculate year-over-year sales growth using the SalesAmount column in the Sales table
-Use Natural Language + Technical Terms - Combine business language with technical cues	Generate a DAX measure that calculates the average order value by dividing total sales by the number of orders in the Orders table.
-Include Time Intelligence When Needed	Create a DAX measure to calculate year-over-year growth in revenue
-Iterate and Validate - Always review the generated DAX for accuracy and performance	Use the "Explain this DAX" feature to understand what Copilot generated
-4. Copilot in Report Building
-Natural language to create a new report - Artificial Intelligence sample for Power BI: Take a tour - Power BI | Microsoft Learn
+| Tip | Example prompts |
+| --- | --- |
+| Be Specific and Contextual  - Clearly define the tables, columns, and relationships you're working with | Create a DAX measure to calculate year-over-year sales growth using the SalesAmount column in the Sales table |
+| Use Natural Language + Technical Terms - Combine business language with technical cues | Generate a DAX measure that calculates the average order value by dividing total sales by the number of orders in the Orders table. |
+| Include Time Intelligence When Needed | Create a DAX measure to calculate year-over-year growth in revenue |
+| Iterate and Validate - Always review the generated DAX for accuracy and performance | Use the "Explain this DAX" feature to understand what Copilot generated |
 
-Sample report - Customer Profitability sample
+### 4. Copilot in Report Building
+
+Natural language to create a new report  - [Artificial Intelligence sample for Power BI: Take a tour - Power BI | Microsoft Learn](https://learn.microsoft.com/en-us/power-bi/create-reports/sample-artificial-intelligence#get-the-pbix-file-for-this-sample)
+
+Sample report - [Customer Profitability sample](https://app.powerbi.com/groups/b7e6fd67-fa41-4256-bf69-9b4046d7da68/reports/75b60664-a807-4100-b204-841f25c6ed12?experience=power-bi&subfolderId=11783)
 
 Some Tips for prompt engineering in report building
 
-Category	Use case	Example
-Create report	create a report with natural language	"Create a page to analyze revenue across industry, products, being filtered by states"
- 	Create a report with the designated visuals	"Create a page to analyze revenuewith a line chart to show revenue by industry,with a pie chart to show revenue margin by products,being filtered by states"
-Refining visuals with follow-up prompts	adjust the report display 	"make the report look like Team Scorecard page;"
- 	Change Visual type	"switch the line chat of Revenue by industry to scatter chart;"
- 	Add Data Labels	"Add data labels to all the visuals for better readability"
- 	Add Tooltips or Interactivity	"Add a tooltip that shows total revenue, profit, and profit margin when hovering over each month"
- 	Filter or Slice the Data	"Add a slicer for product category and another for year to allow filtering"
-Pro Tip	You can ask Copilot to explain what a visual shows or suggest improvements	"What insights can I draw from this chart?"; "How can I make this visual more impactful for executive stakeholders?"
- 
+| Category | Use case | Example |
+| --- | --- | --- |
+| Create report | create a report with natural language | "Create a page to analyze revenue across industry, products, being filtered by states" |
+| &nbsp; | Create a report with the designated visuals | "Create a page to analyze revenue<br><br>with a line chart to show revenue by industry,<br><br>with a pie chart to show revenue margin by products,<br><br>being filtered by states" |
+| Refining visuals with follow-up prompts | adjust the report display<br><br>&nbsp; | "make the report look like Team Scorecard page;" |
+| &nbsp; | Change Visual type | "switch the line chat of Revenue by industry to scatter chart;" |
+| &nbsp; | Add Data Labels | "Add data labels to all the visuals for better readability" |
+| &nbsp; | Add Tooltips or Interactivity | "Add a tooltip that shows total revenue, profit, and profit margin when hovering over each month" |
+| &nbsp; | Filter or Slice the Data | "Add a slicer for product category and another for year to allow filtering" |
+| Pro Tip | You can ask Copilot to explain what a visual shows or suggest improvements | "What insights can I draw from this chart?";  <br>"How can I make this visual more impactful for executive stakeholders?" |
 
-5. Insight Generation
-Power BI Copilot enhances report insight generation by leveraging natural language and AI to help users quickly uncover meaningful patterns, trends, and explanations from their data. Here's a refined summary of its capabilities:
+&nbsp;
 
-• Asking Copilot for insights and trends
+### 5. Insight Generation
 
-• Using Copilot to explain anomalies
+Power BI Copilot enhances **report insight generation** by leveraging natural language and AI to help users quickly uncover meaningful patterns, trends, and explanations from their data. Here's a refined summary of its capabilities:
 
-• Generating executive summaries
+•           Asking Copilot for insights and trends
 
-• Best practices for interpreting AI-generated insights
+•           Using Copilot to explain anomalies
 
-Ask insights in natural language	"Why did revenue margin drop in Q2?""What's driving the best team score in the last 6 months?""What were the top 5 selling products in last year?"
-Key Driver Analysis	" What factors are influencing team scores?""Which variables most affect gross margin?"
-Trend Detection	"Show the trend of monthly revenue over the past year.""Compare product sales by month""Explain the profit margin trend over the last 12 months."
-Anomaly Detection	"Detect unusual spikes or drops in revenue margin." ""Give me a summary of my revenue over the last fiscal year and describe any significant outliers."
-Generating executive summaries	"Summarize the data in a way that allows me to use it in an email to leadership."
-Narrative Generation	"Generate a narrative summary of this dashboard."" Explain the key insights from our team score report.""Create a story around our Q3 business metrics."
-Correlation & Pattern Recognition	"Is there a correlation between scenario and revenue margin?""Find patterns between customer state and product preference."Generate a summary explaining the relationship between revenue, industry, and products
-Pro tips	verify the result by "Explore answer" to understand copilot get the result.
- 	Use follow-up prompts to refine the narrative (e.g., "make it more concise", "add a recommendation")
-6. Demo
+•           Generating executive summaries
+
+•           Best practices for interpreting AI-generated insights
+
+| Ask insights in natural language | "Why did revenue margin drop in Q2?"<br><br>"What's driving the best team score in the last 6 months?"<br><br>"What were the top 5 selling products in last year?" |
+| --- | --- |
+| Key Driver Analysis | " What factors are influencing team scores?"<br><br>"Which variables most affect gross margin?" |
+| Trend Detection | "Show the trend of monthly revenue over the past year."<br><br>"Compare product sales by month"<br><br>"Explain the profit margin trend over the last 12 months." |
+| Anomaly Detection | "Detect unusual spikes or drops in revenue margin." "<br><br>"Give me a summary of my revenue over the last fiscal year and describe any significant outliers." |
+| Generating executive summaries | "Summarize the data in a way that allows me to use it in an email to leadership." |
+| Narrative Generation | "Generate a narrative summary of this dashboard."<br><br>" Explain the key insights from our team score report."<br><br>"Create a story around our Q3 business metrics." |
+| Correlation & Pattern Recognition | "Is there a correlation between scenario and revenue margin?"<br><br>"Find patterns between customer state and product preference."<br><br>Generate a summary explaining the relationship between revenue, industry, and products |
+| Pro tips | verify the result by "Explore answer" to understand copilot get the result. |
+| &nbsp; | Use **follow-up prompts** to refine the narrative (e.g., "make it more concise", "add a recommendation") |
+
+### 6. Demo
+
+&nbsp;
+
+&nbsp;
